@@ -1,9 +1,9 @@
 <?php
 require 'Produto.php';
 
-$produto = new Produto();
+$produto = new ProdutoRepository();
 
-switch ($_GET['operation']) {
+switch ($_POST['operation']) {
     case 'list':
         echo '<h3>Produtos: </h3>';
         foreach ($produto->list() as $value) {
@@ -11,12 +11,11 @@ switch ($_GET['operation']) {
         }
         break;
     case 'insert':
-        if (($produto->insert('exemplo')) == 1) {
+        if (($produto->insert($_POST["productName"],$_POST["description"],$_POST["category"],$_POST["quantity"],$_POST["value"])) == 1) {
             echo 'Adicionado com sucesso';
         } else {
             echo 'Falha na insercao do dado';
         }
-
         break;
     case 'delete':
         if (($produto->delete(1)) == 1) {
