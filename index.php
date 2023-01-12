@@ -1,42 +1,15 @@
-<?php
-session_start();
-require 'ProdutoRepository.php';
+<!DOCTYPE html>
+<html lang="pt-BR">
 
-$produto = new ProdutoRepository();
-
-switch ($_POST['operation']) {
-    case 'list':
-        echo '<h3>Produtos: </h3>';
-        foreach ($produto->list() as $value) {
-            echo "Id: " . $value['id'] . "<br> Descricao: " . $value['descricao'] . "</br>";
-        }
-        break;
-    case 'insert':
-        if (($produto->insert($_POST["productName"],$_POST["productDescription"],
-        $_POST["category"],$_POST["quantity"], $_POST["price"])) == 1) {
-            echo 'Adicionado com sucesso';
-        } else {
-            echo 'Falha na insercao do dado';
-        }
-        break;
-    case 'delete':
-        if (($produto->delete($_POST["id"])) == 1) {
-            echo 'Deletado com sucesso';
-        } else {
-            echo 'Falha no delete do dado';
-        }
-        break;
-    case 'update':
-        if (($produto->update($_POST["id"],$_POST["productName"],$_POST["productDescription"],
-        $_POST["category"],$_POST["quantity"], $_POST["price"])) == 1) {
-            echo 'Update com sucesso';
-        } else {
-            echo 'Falha no update do dado';
-        }
-        break;
-    default:
-        echo 'default';
-        break;
-}
-
-?>
+<head>
+    <meta charset="utf-8">
+    <title>Lista de produtos</title>
+    <meta name="author" content="Raphael Ferraiolo">
+    <meta name="viewpoint" content="" width=device-width. initial-scale="1">
+</head>
+    <h3>Lista de produtos cadastrados</h3>
+    <form action="ProdutoController.php" method="post">
+            <p><input type="submit" name="operation" value="list"> </p>
+        </p>
+    </form>
+</html>
