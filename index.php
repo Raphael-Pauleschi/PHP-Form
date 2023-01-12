@@ -1,5 +1,6 @@
 <?php
-require 'Produto.php';
+session_start();
+require 'ProdutoRepository.php';
 
 $produto = new ProdutoRepository();
 
@@ -11,21 +12,23 @@ switch ($_POST['operation']) {
         }
         break;
     case 'insert':
-        if (($produto->insert($_POST["productName"],$_POST["description"],$_POST["category"],$_POST["quantity"],$_POST["value"])) == 1) {
+        if (($produto->insert($_POST["productName"],$_POST["productDescription"],
+        $_POST["category"],$_POST["quantity"], $_POST["price"])) == 1) {
             echo 'Adicionado com sucesso';
         } else {
             echo 'Falha na insercao do dado';
         }
         break;
     case 'delete':
-        if (($produto->delete(1)) == 1) {
+        if (($produto->delete($_POST["id"])) == 1) {
             echo 'Deletado com sucesso';
         } else {
             echo 'Falha no delete do dado';
         }
         break;
     case 'update':
-        if (($produto->update('exemplo',1)) == 1) {
+        if (($produto->update($_POST["id"],$_POST["productName"],$_POST["productDescription"],
+        $_POST["category"],$_POST["quantity"], $_POST["price"])) == 1) {
             echo 'Update com sucesso';
         } else {
             echo 'Falha no update do dado';
