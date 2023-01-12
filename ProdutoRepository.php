@@ -45,14 +45,14 @@ class ProdutoRepository
     public function update(int $id,string $productName,string $productDescription, string $category, int $quantity, float $price): int
     {
         $prepare = ($this->connection)->prepare
-        ('update produtos set productName,  productDescription, category, quantity, price = (?,?,?,?,?,?) where id= ?');
+        ('update produtos set productName=?,productDescription=?,category=?,quantity=?,price=?  where id= ?');
 
-        $prepare->bindParam(1, $id);
-        $prepare->bindParam(2, $productName);
-        $prepare->bindParam(3, $productDescription);
-        $prepare->bindParam(4, $category);
-        $prepare->bindParam(5, $quantity);
-        $prepare->bindParam(6, $price);
+        $prepare->bindParam(1, $productName);
+        $prepare->bindParam(2, $productDescription);
+        $prepare->bindParam(3, $category);
+        $prepare->bindParam(4, $quantity);
+        $prepare->bindParam(5, $price);
+        $prepare->bindParam(6, $id);
 
         $prepare->execute();
         return $prepare->rowCount();
