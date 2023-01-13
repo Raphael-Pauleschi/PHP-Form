@@ -20,7 +20,7 @@ class ProdutoRepository
         $sql = 'select * from produtos';
 
         $produtos = [];
-        
+
         foreach (($this->connection)->query($sql) as $kel => $value) {
             array_push($produtos, $value);
         }
@@ -28,7 +28,7 @@ class ProdutoRepository
 
     }
 
-    public function insert(string $productName,string $productDescription, string $category, int $quantity, float $price): int
+    public function insert(string $productName, string $productDescription, string $category, int $quantity, float $price): int
     {
         $prepare = ($this->connection)->prepare
         ('insert into produtos(productName,  productDescription, category, quantity, price) 
@@ -42,10 +42,15 @@ class ProdutoRepository
 
         return $prepare->rowCount();
     }
-    public function update(int $id,string $productName,string $productDescription, string $category, int $quantity, float $price): int
+    public function update(int $id, string $productName, string $productDescription, string $category, int $quantity, float $price): int
     {
         $prepare = ($this->connection)->prepare
-        ('update produtos set productName,  productDescription, category, quantity, price = (?,?,?,?,?,?) where id= ?');
+        ('update produtos set productName = ?,  
+        productDescription= ?,
+        category= ?,
+        quantity= ?,
+        price= ?  
+        where id= ?');
 
         $prepare->bindParam(1, $id);
         $prepare->bindParam(2, $productName);
