@@ -7,6 +7,7 @@ $produto = new ProdutoRepository();
 switch ($_POST['operation']) {
     case 'list':
         echo '<h3>Produtos: </h3>';
+
         foreach ($produto->list() as $value){
             echo "<form id=".$value['id']." action='produtoController.php' method='post'>".
             "Id: " . $value['id'] .
@@ -25,6 +26,14 @@ switch ($_POST['operation']) {
              "<input type='submit' name='operation' value='get'> </p>"."</form>";
         }
         break;
+    case 'get':
+        header("Location: formInsert.php?id=".$_POST['id'].
+        "&productName=".$_POST['productName'].
+        "&productDescription=".$_POST['productDescription'].
+        "&category=".$_POST['category'].
+        "&quantity=".$_POST['quantity']. 
+        "&price=".$_POST['price']);
+        break;
     case 'insert':
         if (
             ($produto->insert(
@@ -38,7 +47,7 @@ switch ($_POST['operation']) {
         } else {
             echo 'Falha na insercao do dado';
         }
-        header("Location: form.php");
+        header("Location: formInsert.php");
         break;
     case 'delete':
         if (($produto->delete($_POST["id"])) == 1) {
